@@ -26,7 +26,7 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
 
 
     public WeatherCustomAdapter(Context context,ArrayList<Weather> items) {
-        super(context, R.layout.weather);
+        super(context, R.layout.weather,items);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
         vh.date.setText(wi.getId());
         vh.day.setText(Double.toString(wi.getDay()));
         vh.night.setText(Double.toString(wi.getNight()));
-        vh.main.setText(wi.getId());
+        vh.main.setText(wi.getMain());
         return view;
     }
 
