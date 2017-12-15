@@ -45,7 +45,7 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.date.setText(wi.getId());
+        vh.date.setText(wi.getName());
         vh.day.setText(Double.toString(wi.getDay()));
         vh.night.setText(Double.toString(wi.getNight()));
         vh.main.setText(wi.getMain());

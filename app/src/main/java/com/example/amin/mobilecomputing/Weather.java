@@ -7,20 +7,23 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Amin on 13/12/2017.
  */
 
-public class Weather {
+public class Weather implements Serializable {
     private static final String OPEN_WEATHER_MAP_API =
             "http://api.openweathermap.org/data/2.5/forecast/daily?q=Cairo%2CEG&appid=c0c4a4b4047b97ebc5948ac9c48c0559&units=metric&cnt=7";
 
     private double day,night,pressure,humidity;
-    private String id,description,city,country,main;
+    private String id,description,city,country,main,name;
 
     public Weather(){
         city="Cairo";
@@ -93,7 +96,12 @@ public class Weather {
         return country;
     }
 
-
+    public void setName(String n){
+        name=n;
+    }
+    public String getName(){
+        return name;
+    }
     private static JSONObject getWeather(){
         try {
             URL url = new URL(OPEN_WEATHER_MAP_API);
@@ -130,6 +138,7 @@ public class Weather {
             w.setHumidity(json.getDouble("humidity"));
             w.setPressure(json.getDouble("pressure"));
             w.setId(id);
+
         } catch (Exception e) {
             Log.e("Nugget>Weather", "One or more fields missing in JSON data");
         }
@@ -178,10 +187,136 @@ public class Weather {
             w.setDegree(Double.parseDouble(cr.getString(5)),Double.parseDouble(cr.getString(6)));
             w.setHumidity(Double.parseDouble(cr.getString(8)));
             w.setPressure(Double.parseDouble(cr.getString(7)));
+            String name = getWeatherDay(Integer.parseInt(cr.getString(0)));
+            w.setName(name);
             current.add(w);
         }while(cr.moveToNext());
 
         return current;
+    }
+    private static String getWeatherDay(int i)
+    {
+        Date d= new Date();
+        SimpleDateFormat s = new SimpleDateFormat("EEEE");
+        String day=s.format(d);
+
+        switch (day){
+            case "Saturday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Sunday";
+                else if(i==2)
+                    day="Monday";
+                else if(i==3)
+                    day="Tuesday";
+                else if(i==4)
+                    day="Wednesday";
+                else if(i==5)
+                    day="Thursday";
+                else
+                    day="Friday";
+                break;
+
+            case "Sunday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Monday";
+                else if(i==2)
+                    day="Tuesday";
+                else if(i==3)
+                    day="Wednesday";
+                else if(i==4)
+                    day="Thursday";
+                else if(i==5)
+                    day="Friday";
+                else
+                    day="Saturday";
+                break;
+
+            case "Monday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Tuesday";
+                else if(i==2)
+                    day="Wednesday";
+                else if(i==3)
+                    day="Thursday";
+                else if(i==4)
+                    day="Friday";
+                else if(i==5)
+                    day="Saturday";
+                else
+                    day="Sunday";
+                break;
+            case "Tuesday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Wednesday";
+                else if(i==2)
+                    day="Thursday";
+                else if(i==3)
+                    day="Friday";
+                else if(i==4)
+                    day="Saturday";
+                else if(i==5)
+                    day="Sunday";
+                else
+                    day="Monday";
+                break;
+            case "Wednesday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Thursday";
+                else if(i==2)
+                    day="Friday";
+                else if(i==3)
+                    day="Saturday";
+                else if(i==4)
+                    day="Sunday";
+                else if(i==5)
+                    day="Monday";
+                else
+                    day="Tuesday";
+                break;
+            case "Thursday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Friday";
+                else if(i==2)
+                    day="Saturday";
+                else if(i==3)
+                    day="Sunday";
+                else if(i==4)
+                    day="Monday";
+                else if(i==5)
+                    day="Tuesday";
+                else
+                    day="Wednesday";
+                break;
+            case "Friday":
+                if(i==0)
+                    break;
+                else if(i==1)
+                    day="Saturday";
+                else if(i==2)
+                    day="Sunday";
+                else if(i==3)
+                    day="Monday";
+                else if(i==4)
+                    day="Tuesday";
+                else if(i==5)
+                    day="Wednesday";
+                else
+                    day="Thursday";
+                break;
+        }
+        return day;
     }
 }
 
