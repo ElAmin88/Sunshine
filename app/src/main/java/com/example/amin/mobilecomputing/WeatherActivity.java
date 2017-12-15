@@ -27,10 +27,13 @@ public class WeatherActivity extends AppCompatActivity {
 
 
 
-        if(!MainActivity.WithinWeek()){
+        if(!MainActivity.WithinWeek(2)){
             new Thread() {
                 public void run() {
                     Weather.UpdateWeather(DB);
+                    MainActivity.loginPrefsEditor.putInt("UpdateDay",MainActivity.Day);
+                    MainActivity.loginPrefsEditor.apply();
+                    MainActivity.loginPrefsEditor.commit();
                 }
             }.start();
         }

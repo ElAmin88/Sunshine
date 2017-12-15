@@ -2,10 +2,12 @@ package com.example.amin.mobilecomputing;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class WeatherDetailedActivity extends AppCompatActivity {
     TextView lbl_Name,lbl_Day,lbl_Night,lbl_Main,lbl_Humidity,lbl_Pressure,lbl_Description,lbl_Country,lbl_City;
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,5 +39,8 @@ public class WeatherDetailedActivity extends AppCompatActivity {
 
         lbl_City =(TextView)findViewById(R.id.lbl_City);
         lbl_City.setText(w.getCity());
+
+        img= (ImageView)findViewById(R.id.img_details);
+        WeatherCustomAdapter.ChangeImage(w.getMain(),img);
     }
 }

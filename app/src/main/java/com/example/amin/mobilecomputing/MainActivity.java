@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Day = cal.get(Calendar.DAY_OF_MONTH);
         remembered= loginPreferences.getBoolean("saveLogin", false);
         if(remembered){
-            if(WithinWeek()){
+            if(WithinWeek(1)){
                 Intent i = new Intent(MainActivity.this,WeatherActivity.class);
                 startActivity(i);
             }
@@ -85,8 +85,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public static boolean WithinWeek(){
-        int remembered_day =loginPreferences.getInt("LoginDay", 0);
+    public static boolean WithinWeek(int mode){
+        int remembered_day;
+        if(mode ==1)
+            remembered_day =loginPreferences.getInt("LoginDay", 0);
+        else
+            remembered_day =loginPreferences.getInt("UpdateDay", 0);
         int temp=remembered_day+7;
         if (Month==2&& temp>27)
             temp-=28;

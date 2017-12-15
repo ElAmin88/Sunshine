@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
         TextView day;
         TextView night;
         TextView main;
+        ImageView img;
     }
 
 
@@ -41,6 +43,7 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
             vh.day = (TextView) view.findViewById(R.id.Day);
             vh.night = (TextView) view.findViewById(R.id.Night);
             vh.main = (TextView) view.findViewById(R.id.Main);
+            vh.img = (ImageView)view.findViewById(R.id.img_weather);
             view.setTag(vh);
         } else {
             vh = (ViewHolder) view.getTag();
@@ -49,7 +52,21 @@ public class WeatherCustomAdapter extends ArrayAdapter<Weather> {
         vh.day.setText(Double.toString(wi.getDay()));
         vh.night.setText(Double.toString(wi.getNight()));
         vh.main.setText(wi.getMain());
+        ChangeImage(wi.getMain(),vh.img);
         return view;
+    }
+
+    public static void ChangeImage(String weather ,ImageView img){
+        if(weather.toLowerCase().contains("sun")||weather.contains("clear"))
+            img.setBackgroundResource(R.drawable.sun);
+        else if(weather.toLowerCase().contains("cloud"))
+            img.setBackgroundResource(R.drawable.cloud);
+        else if(weather.toLowerCase().contains("rain"))
+            img.setBackgroundResource(R.drawable.rain);
+        else if(weather.toLowerCase().contains("snow"))
+            img.setBackgroundResource(R.drawable.snow);
+        else
+            img.setBackgroundResource(R.drawable.defalt);
     }
 
 }
